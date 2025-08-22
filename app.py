@@ -125,10 +125,10 @@ def dashboard():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
 
-    # Dataset stats for graph
+    
     counts = twitter_data["category"].value_counts().to_dict()
 
-    # Pie Chart
+    
     labels = ["Positive", "Neutral", "Negative"]
     values = [
         counts.get(1, 0),
@@ -142,7 +142,7 @@ def dashboard():
     plt.savefig(chart_path)
     plt.close()
 
-    # Send counts + chart + sample text
+    
     sample_texts = twitter_data.head(10).to_dict(orient="records")
 
     return render_template("dashboard.html",
@@ -150,6 +150,6 @@ def dashboard():
                            chart="sentiment_pie.png",
                            sample_texts=sample_texts)
 
-# ------------------- RUN -------------------
+
 if __name__ == "__main__":
     app.run(debug=True)
